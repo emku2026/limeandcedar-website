@@ -38,11 +38,13 @@
     box.setAttribute('role', 'dialog');
     box.setAttribute('aria-modal', 'true');
     box.innerHTML = '<div class="qmodal__box"><div class="qmodal__check">✓</div><h3>Request received!</h3>' +
-      '<p><span class="qmodal__hi"></span>Dan will text you with the rate shortly from <b class="qmodal__phone"></b>.</p>' +
+      '<p><span class="qmodal__hi"></span>Dan will text you <span class="qmodal__what"></span> shortly from <b class="qmodal__phone"></b>.</p>' +
       '<small>Want it faster? Give us a call.</small>' +
       '<div class="qmodal__btns"><button type="button" class="qmodal__ok">OK</button>' +
       '<a class="qmodal__call">📞 Call </a></div></div>';
     box.querySelector('.qmodal__hi').textContent = first ? 'Thanks, ' + first + '. ' : 'Thanks! ';
+    var heavy = form.elements.kind && form.elements.kind.value === 'heavy';
+    box.querySelector('.qmodal__what').textContent = heavy ? 'about your equipment' : 'with the rate';
     box.querySelector('.qmodal__phone').textContent = phone;
     var link = box.querySelector('.qmodal__call');
     link.setAttribute('href', tel);
