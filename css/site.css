@@ -55,10 +55,23 @@ h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
 .quote input:focus, .quote select:focus { outline: 2px solid var(--lime); border-color: var(--lime-dark); }
 .quote .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .quote .hp { position: absolute; left: -9999px; }
+.quote [hidden] { display: none !important; }
 .quote .invalid { border-color: #c0392b; }
 .fine { font-size: .78rem; color: var(--muted); margin: 10px 0 0; }
 .quote__ok { background: #eaf6dc; color: var(--cedar); padding: 12px; border-radius: 8px; font-weight: 600; }
 .quote__err { background: #fdecea; color: #8a1f11; padding: 12px; border-radius: 8px; }
+.qmodal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(16, 30, 20, .55); }
+.qmodal[hidden] { display: none; }
+.qmodal__box { background: #fff; border-radius: 16px; width: 100%; max-width: 420px; padding: 28px 24px 22px; text-align: center; box-shadow: 0 20px 60px rgba(0, 0, 0, .25); }
+.qmodal__check { width: 64px; height: 64px; margin: 0 auto 14px; border-radius: 50%; background: var(--lime); color: #fff; font-size: 36px; line-height: 64px; font-weight: 700; }
+.qmodal h3 { font-size: 1.5rem; color: var(--cedar); margin: 0 0 8px; }
+.qmodal p { margin: 0 0 10px; }
+.qmodal small { display: block; color: var(--muted); margin-bottom: 18px; }
+.qmodal__btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.qmodal__btns a, .qmodal__btns button { font: inherit; font-weight: 600; padding: 11px 20px; border-radius: 10px; text-decoration: none; cursor: pointer; }
+.qmodal__ok { background: var(--cedar); color: #fff; border: 0; }
+.qmodal__call { border: 2px solid var(--cedar); color: var(--cedar); background: #fff; }
+@media (max-width: 420px) { .qmodal__btns > * { flex: 1 1 100%; } }
 
 .trust { background: var(--bg-alt); border-bottom: 1px solid var(--line); }
 .trust__in { display: flex; flex-wrap: wrap; gap: 8px 32px; justify-content: center; padding-top: 14px; padding-bottom: 14px; font-size: .95rem; }

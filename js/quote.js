@@ -28,6 +28,35 @@
     });
   });
 
+  // "Request received" window after a successful send. Phone comes from the error message's call link.
+  function showThanks() {
+    var call = err.querySelector('a[href^="tel:"]');
+    var phone = call ? call.textContent : '', tel = call ? call.getAttribute('href') : '';
+    var first = (form.elements.name.value.trim().split(/\s+/)[0] || '').slice(0, 30);
+    var box = document.createElement('div');
+    box.className = 'qmodal';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-modal', 'true');
+    box.innerHTML = '<div class="qmodal__box"><div class="qmodal__check">✓</div><h3>Request received!</h3>' +
+      '<p><span class="qmodal__hi"></span>Dan will text you with the rate shortly from <b class="qmodal__phone"></b>.</p>' +
+      '<small>Want it faster? Give us a call.</small>' +
+      '<div class="qmodal__btns"><button type="button" class="qmodal__ok">OK</button>' +
+      '<a class="qmodal__call">📞 Call </a></div></div>';
+    box.querySelector('.qmodal__hi').textContent = first ? 'Thanks, ' + first + '. ' : 'Thanks! ';
+    box.querySelector('.qmodal__phone').textContent = phone;
+    var link = box.querySelector('.qmodal__call');
+    link.setAttribute('href', tel);
+    link.appendChild(document.createTextNode(phone));
+    if (!call) link.remove();
+    function close() { box.remove(); document.removeEventListener('keydown', onKey); }
+    function onKey(e) { if (e.key === 'Escape') close(); }
+    box.addEventListener('click', function (e) { if (e.target === box) close(); });
+    box.querySelector('.qmodal__ok').addEventListener('click', close);
+    document.addEventListener('keydown', onKey);
+    document.body.appendChild(box);
+    box.querySelector('.qmodal__ok').focus();
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var bad = null;
@@ -49,6 +78,7 @@
       .then(function () {
         form.querySelectorAll('label, .row, button, .fine').forEach(function (el) { el.hidden = true; });
         ok.hidden = false;
+        showThanks();
         if (window.gtag) window.gtag('event', 'generate_lead');
       })
       .catch(function () {
