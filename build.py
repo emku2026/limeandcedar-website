@@ -38,6 +38,7 @@ ORG = {
     "logo": SITE + "img/logo-full.jpg", "telephone": "+1-909-323-0321", "email": EMAIL, "areaServed": "US",
     "identifier": [{"@type": "PropertyValue", "propertyID": "MC", "value": MC},
                    {"@type": "PropertyValue", "propertyID": "USDOT", "value": USDOT}],
+    "sameAs": ["https://www.facebook.com/limeandcedar"],
 }
 
 QUOTE_FORM = """
