@@ -142,7 +142,7 @@ LAYOUT = """<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{description}">
-<link rel="canonical" href="{url}">
+{head_index}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{BRAND_LONG}">
 <meta property="og:title" content="{title}">
@@ -251,7 +251,9 @@ def build():
             graph.append(faq)
         current = ' aria-current="page"'
         nav = "".join(f'<a href="/{href}"{current if href == path else ""}>{label}</a>' for href, label in NAV)
-        html = LAYOUT.format(title=meta["title"], description=meta["description"], url=url, body=body.strip(),
+        head_index = ('<meta name="robots" content="noindex">' if meta.get("priority") == "none"
+                      else f'<link rel="canonical" href="{url}">')
+        html = LAYOUT.format(head_index=head_index, title=meta["title"], description=meta["description"], url=url, body=body.strip(),
                              schema=json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False),
                              nav=nav, quote_link="#quote", year=date.today().year, **CONSTANTS)
         (ROOT / path).write_text(html)
