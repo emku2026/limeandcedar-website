@@ -255,7 +255,7 @@ def build():
                       else f'<link rel="canonical" href="{url}">')
         html = LAYOUT.format(head_index=head_index, title=meta["title"], description=meta["description"], url=url, body=body.strip(),
                              schema=json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False),
-                             nav=nav, quote_link="#quote", year=date.today().year, **CONSTANTS)
+                             nav=nav, quote_link="#quote" if 'id="quote"' in body else "/#quote", year=date.today().year, **CONSTANTS)
         (ROOT / path).write_text(html)
         if meta.get("priority") != "none":
             sitemap.append((url, meta.get("priority", "0.6")))
